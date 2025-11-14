@@ -1,4 +1,30 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
+import '../styles/langDialog.css';
+
+const currentLang = ref("EN");
+const langRef = ref<HTMLDialogElement | null>(null);
+const isOpen = ref(false);
+
+function toggleLang() {
+  if (!langRef.value) 
+  return;
+
+  if (isOpen.value) {
+    langRef.value.close();
+    isOpen.value = false;
+  } else {
+    langRef.value.show();
+    isOpen.value = true;
+  }
+}
+
+function selectLang(lang: string) {
+  currentLang.value = lang;
+
+  langRef.value?.close();
+  isOpen.value = false;
+}
 </script>
 
 <template>
@@ -19,9 +45,18 @@
         </div>
 
         <div class="actions">
-            <div class="lang">EN <span class="arrow">&#709;</span></div>
+            <div class="lang-container">
+                <div class="lang" @click="toggleLang()">
+                    {{ currentLang }}
+                    <span class="arrow">&#709;</span>
+                </div>
+                <dialog ref="langRef" class="lang-dialog">
+                    <button class="lang-option" @click="selectLang('EN')">EN</button>
+                    <button class="lang-option" @click="selectLang('UA')">UA</button>
+                </dialog>
+            </div>
             <button class="sign-btn">SIGN IN FOR FREE</button>
-            <div class="burger">&#9776;</div>
+            <div class="hamburger">&#9776;</div>
         </div>
     </header>
 </template>
@@ -89,7 +124,7 @@ header {
     gap: 10px;
 }
 
-.burger {
+.hamburger {
     display: none;
     font-size: 28px;
     cursor: pointer;
@@ -113,7 +148,7 @@ header {
         display: none;
     }
 
-    .burger {
+    .hamburger {
         display: block;
     }
 
@@ -135,7 +170,7 @@ header {
         display: none;
     }
 
-    .burger {
+    .hamburger {
         font-size: 24px;
     }
 

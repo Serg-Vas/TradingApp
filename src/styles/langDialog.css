@@ -1,0 +1,58 @@
+.lang-container {
+  position: relative;
+  display: inline-block;
+}
+
+.lang {
+  padding: 10px 16px;
+  border: 1px solid #333;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: "Museo Sans Cyrl", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  user-select: none;
+}
+
+.lang-dialog {
+  position: absolute;
+  padding: 0;
+  margin: 0;
+
+  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
+
+  top: calc(100% + 6px);
+
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+  inset-inline: auto;
+}
+
+.lang-dialog::backdrop {
+  background: transparent;
+}
+
+.lang-option {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: #fff;
+  text-align: left;
+  cursor: pointer;
+  font-size: 15px;
+  font-family: "Museo Sans Cyrl", sans-serif;
+  color: #333;
+}
+
+.lang-option:hover {
+  background: #f4f4f4;
+}
