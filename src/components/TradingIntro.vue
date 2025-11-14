@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <section class="trading-intro">
+  <section class="violet trading-intro">
     <div class="text">
       <h1>Trade everywhere.<br />Invest here!</h1>
       <p>
@@ -21,9 +21,6 @@
 .trading-intro {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  background-color: #e8e4f7;
-  padding: 60px 120px;
   gap: 40px;
 }
 h1 {
@@ -35,24 +32,23 @@ p {
   max-width: 483px;
 }
 
-.image-container {
+/* .image-container {
   flex: 1 1 400px;
   text-align: right;
-}
+} */
 
 .image-container img {
   width: 100%;
   max-width: 482px;
+  min-width: 200px;
   height: auto;
 }
 
 /*728px*/
 @media (max-width: 768px) {
   .trading-intro {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
     padding: 50px 40px;
+    text-align: center;
     gap: 32px;
   }
 
@@ -83,8 +79,6 @@ p {
   }
 
   p {
-    font-size: 15px;
-    line-height: 24px;
     text-align: left;
   }
 

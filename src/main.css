@@ -16,7 +16,12 @@ p {
 }
 
 
-h1, h2, h3, h4, h5, a {
+h1,
+h2,
+h3,
+h4,
+h5,
+a {
   font-family: "Museo Sans Cyrl", sans-serif;
   color: #333;
   font-weight: 600;
@@ -30,30 +35,30 @@ h1 {
 
 
 button {
-    color: #fff;
-    background-color: #4F62F6;
-    font-family: "Museo Sans Cyrl", sans-serif;
-    font-size: 16px;
-    border: none;
-    border-radius: 60px;
-    padding: 20px 64px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: 0.3s;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
+  color: #fff;
+  background-color: #4F62F6;
+  font-family: "Museo Sans Cyrl", sans-serif;
+  font-size: 16px;
+  border: none;
+  border-radius: 60px;
+  padding: 20px 64px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 button:hover {
-    background: #7181FC;
+  background: #7181FC;
 }
 
 button:active {
-    background: #354BF4;
+  background: #354BF4;
 }
 
 button:disabled {
-    background: #E0E0E0;
+  background: #E0E0E0;
 }
 
 ul {
@@ -63,4 +68,47 @@ ul {
 a {
   font-weight: 600;
   text-decoration: none;
+}
+
+h2 {
+  font-size: 56px;
+  font-weight: 600;
+  font-family: "Museo Sans Cyrl", sans-serif;
+  color: #333;
+  margin-bottom: 60px;
+  line-height: 66px;
+}
+
+section {
+  padding-inline: clamp(20px, 6vw, 300px) !important;
+  padding-block: clamp(40px, 8vw, 80px);
+  position: relative;
+  justify-content: space-evenly;
+}
+
+.violet {
+  background-color: #E8E4F7;
+}
+
+@media (max-width: 768px) {
+  .violet {
+    flex-direction: column !important;
+    align-items: center !important;
+    /* padding: 50px 100px !important; */
+  }
+  section {
+    /* padding: 40px 20px !important; */
+  }
+}
+
+@media (max-width: 320px) {
+  section {
+    /* padding: 20px 10px !important; */
+  }
+  .title {
+    font-size: 40px !important;
+    line-height: 44px !important;
+    text-align: left !important;
+    /* margin-bottom: 40px !important; */
+  }
 }

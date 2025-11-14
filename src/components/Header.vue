@@ -7,23 +7,23 @@ const langRef = ref<HTMLDialogElement | null>(null);
 const isOpen = ref(false);
 
 function toggleLang() {
-  if (!langRef.value) 
-  return;
+    if (!langRef.value)
+        return;
 
-  if (isOpen.value) {
-    langRef.value.close();
-    isOpen.value = false;
-  } else {
-    langRef.value.show();
-    isOpen.value = true;
-  }
+    if (isOpen.value) {
+        langRef.value.close();
+        isOpen.value = false;
+    } else {
+        langRef.value.show();
+        isOpen.value = true;
+    }
 }
 
 function selectLang(lang: string) {
-  currentLang.value = lang;
+    currentLang.value = lang;
 
-  langRef.value?.close();
-  isOpen.value = false;
+    langRef.value?.close();
+    isOpen.value = false;
 }
 </script>
 
@@ -62,23 +62,15 @@ function selectLang(lang: string) {
 </template>
 
 <style scoped>
-.logo {
-    font-weight: 700;
-    font-size: 15px;
-    font-family: "Museo Sans Cyrl", sans-serif;
-    line-height: 16px;
-}
-
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
     height: 80px;
-    padding: 0 120px;
+    width: 100%;
+    padding-inline: clamp(20px, 4vw, 120px);
     background-color: #fff;
     box-sizing: border-box;
-    padding-inline: clamp(20px, 4vw, 120px);
 }
 
 .left-side {
@@ -87,21 +79,21 @@ header {
     gap: 48px;
 }
 
+.logo {
+    font-weight: 700;
+}
+
 .navigation ul {
     display: flex;
     align-items: center;
     gap: 32px;
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
 
 .navigation a {
-    font-family: "Montserrat", sans-serif;
-    font-size: 15px;
-    line-height: 16px;
-    font-weight: 600;
-    color: #333;
     text-decoration: none;
+    color: #333;
     white-space: nowrap;
 }
 
@@ -112,21 +104,12 @@ header {
 }
 
 .lang {
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 16px;
     border: 1px solid #333;
     border-radius: 40px;
     padding: 10px 16px;
-    font-family: "Museo Sans Cyrl", sans-serif;
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.hamburger {
-    display: none;
-    font-size: 28px;
     cursor: pointer;
 }
 
@@ -135,9 +118,15 @@ header {
     font-size: 14px;
 }
 
-@media (max-width: 768px) {
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 28px;
+}
+
+@media (max-width: 1100px) {
     header {
-        padding: 0 40px;
+        padding-inline: 40px;
     }
 
     .navigation {
@@ -163,7 +152,7 @@ header {
 
 @media (max-width: 320px) {
     header {
-        padding: 0 20px;
+        padding-inline: 20px;
     }
 
     .sign-btn {

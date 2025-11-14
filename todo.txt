@@ -12,7 +12,14 @@
 
 Завдання:
     -зробити TradingIntro.vue
-    -зробити Header.vue
+    +зробити Header.vue
+    -зробити Steps.vue
+        доробити лінії
+    -зробити Testimonials.vue
     -написати глобальні стилі main.css
         +зробити анімацію стейтів для кнопок
 
+    fix button in FAQ
+    fix form in ContactUs
+    fix Testimonials
+    continue working on css

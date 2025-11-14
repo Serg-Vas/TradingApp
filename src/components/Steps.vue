@@ -29,34 +29,50 @@ function drawLines() {
   const canvas = document.getElementById("canvas-lines") as HTMLCanvasElement;
   const ctx = canvas.getContext("2d")!;
 
+  const stepsEl = document.querySelector(".steps")!.getBoundingClientRect();
+
   canvas.width = canvas.offsetWidth;
   canvas.height = canvas.offsetHeight;
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.strokeStyle = "#8a7ff0";
+
+  ctx.strokeStyle = "#6248FF";
   ctx.lineWidth = 3;
+  ctx.setLineDash([1, 6]);
+  ctx.lineCap = "round";
 
-  for (let i = 0; i < cards.value.length - 1; i++) {
-    const a = cards.value[i].getBoundingClientRect();
-    const b = cards.value[i + 1].getBoundingClientRect();
-
-    const parent = canvas.getBoundingClientRect();
-
-    const ax = a.left + a.width / 2 - parent.left;
-    const ay = a.top + a.height / 2 - parent.top;
-
-    const bx = b.left + b.width / 2 - parent.left;
-    const by = b.top + b.height / 2 - parent.top;
-
+  function drawCurve(a: DOMRect, b: DOMRect, bend: "right" | "left") {
     ctx.beginPath();
+
+    const ax = a.left + a.width - stepsEl.left;
+    const ay = a.top + a.height / 2 - stepsEl.top;
+
+    const bx = b.left - stepsEl.left;
+    const by = b.top + b.height / 2 - stepsEl.top;
+
+    const midX = (ax + bx) / 2;
+
     ctx.moveTo(ax, ay);
+
+    if (bend === "right") {
+      ctx.quadraticCurveTo(midX, ay, midX, by);
+    } else {
+      ctx.quadraticCurveTo(midX, by, midX, ay);
+    }
+
     ctx.lineTo(bx, by);
     ctx.stroke();
   }
+
+  drawCurve(cards.value[0].getBoundingClientRect(), cards.value[1].getBoundingClientRect(), "right");
+  drawCurve(cards.value[1].getBoundingClientRect(), cards.value[2].getBoundingClientRect(), "left");
+  drawCurve(cards.value[2].getBoundingClientRect(), cards.value[3].getBoundingClientRect(), "right");
 }
 
+
+
 onMounted(async () => {
-  await nextTick(); // ждём рендер карточек
+  await nextTick();
   drawLines();
   window.addEventListener("resize", drawLines);
 });
@@ -75,7 +91,7 @@ onBeforeUnmount(() => {
     </h2>
 
     <div class="steps">
-      <div v-for="step in steps" :key="step.id" class="step-card" ref="cards">
+      <div v-for="(step, index) in steps" :key="step.id" class="step-card" :class="'card-' + (index + 1)" ref="cards">
         <div class="step-id">{{ step.id }}</div>
         <h3 class="step-title">{{ step.title }}</h3>
         <p class="step-text">{{ step.text }}</p>
@@ -87,19 +103,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-.getting-started {
-  padding: 80px 120px;
-  position: relative;
-}
-
-.title {
-  font-size: 42px;
-  font-weight: 700;
-  font-family: "Museo Sans Cyrl", sans-serif;
-  color: #333;
-  margin-bottom: 60px;
-  line-height: 48px;
-}
 
 .title span {
   background: #ece8ff;
@@ -109,9 +112,39 @@ onBeforeUnmount(() => {
 .steps {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, 360px);
-  grid-template-rows: repeat(2, auto);
-  gap: 60px 120px;
+  grid-template-columns: repeat(2, max-content);
+  grid-template-rows: max-content max-content;
+  gap: 0 200px;
+  align-items: start;
+}
+
+.step-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 483px;
+  box-sizing: border-box;
+  width: fit-content;
+
+  border: 2px solid #6248FF;
+  border-radius: 30px;
+  padding: 32px;
+
+  background: #fff;
+  position: relative;
+  z-index: 2;
+}
+
+.card-2 {
+  transform: translateY(70px);
+}
+
+.card-3 {
+  transform: translateY(140px);
+}
+
+.card-4 {
+  transform: translateY(210px);
 }
 
 #canvas-lines {
@@ -122,27 +155,24 @@ onBeforeUnmount(() => {
   pointer-events: none;
 }
 
-.step-card {
-  border: 2px solid #cfc8ff;
-  border-radius: 16px;
-  padding: 20px;
-  width: 360px;
-  background: #fff;
-  position: relative;
-  z-index: 2;
-}
 
 .step-id {
-  color: #8a7ff0;
-  font-size: 14px;
+  color: #6248FF;
+  font-size: 15px;
   font-weight: 600;
-  margin-bottom: 8px;
 }
 
 .step-title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 700;
   font-family: "Museo Sans Cyrl", sans-serif;
-  margin-bottom: 12px;
+  margin: 0;
+  color: #333333;
+}
+
+@media (max-width: 320px) {
+  .getting-started {
+    padding: 40px 24px;
+  }
 }
 </style>
