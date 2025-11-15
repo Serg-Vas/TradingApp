@@ -19,7 +19,8 @@
     -написати глобальні стилі main.css
         +зробити анімацію стейтів для кнопок
 
-    fix button in FAQ
-    fix form in ContactUs
-    fix Testimonials
+    +fix button in FAQ
+    +fix form in ContactUs
+    +fix Testimonials
+    fix steps
     continue working on css

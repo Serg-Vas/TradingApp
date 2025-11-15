@@ -40,54 +40,81 @@ function next() {
 
 <template>
   <section class="testimonials">
+
     <div class="left">
       <h2 class="title">
         People love Big<br />
         <span>Invest</span>
       </h2>
 
-      <div class="controls">
+      <!-- КНОПКИ ДЛЯ ДЕСКТОПА -->
+      <div class="controls controls-left">
         <button @click="prev">‹</button>
         <button @click="next">›</button>
       </div>
     </div>
 
-    <div class="right">
-      <div class="user">
-        <img :src="testimonials[index].img" />
-        <div>
-          <h4>{{ testimonials[index].name }}</h4>
-          <p class="role">{{ testimonials[index].role }}</p>
-        </div>
-      </div>
+<div class="right-wrapper">
 
-      <div class="quote">❝</div>
+  <!-- LEFТ QUOTE (ДЕСКТОП) -->
+  <div class="quote-desktop">
+    <img src="/public/images/quotationMark.png" alt="">
+  </div>
 
-      <p class="text">
-        {{ testimonials[index].text }}
-      </p>
+  <button class="arrow arrow-left" @click="prev">‹</button>
 
-      <div class="count">
-        {{ String(index + 1).padStart(2, "0") }} /
-        {{ String(testimonials.length).padStart(2, "0") }}
+  <div class="right">
+
+    <div class="user">
+      <img :src="testimonials[index].img" />
+      <div class="user-info">
+        <h4>{{ testimonials[index].name }}</h4>
+        <p class="role">{{ testimonials[index].role }}</p>
       </div>
     </div>
+
+    <!-- MOBILE QUOTE -->
+    <div class="quote-mobile">
+      <img src="/public/images/quotationMark.png" alt="">
+    </div>
+
+    <p class="text">{{ testimonials[index].text }}</p>
+
+    <div class="count">
+      {{ String(index + 1).padStart(2, '0') }} /
+      {{ String(testimonials.length).padStart(2, '0') }}
+    </div>
+
+  </div>
+
+  <button class="arrow arrow-right" @click="next">›</button>
+
+</div>
+
+
+
+
   </section>
+
 </template>
 
 <style scoped>
-
 .testimonials {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: flex-start;
-  gap: 60px;
+  gap: clamp(40px, 6vw, 80px);
+  margin-top: clamp(80px, 12vw, 220px);
 }
 
 .left {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 32px;
+}
+
+.title {
+  margin: 0;
 }
 
 .title span {
@@ -97,31 +124,51 @@ function next() {
 
 .controls {
   display: flex;
-  gap: 14px;
+  gap: 16px;
 }
 
-.controls button {
-  width: 38px;
-  height: 38px;
+h4,
+.role {
+  margin: 0;
+  line-height: 30px;
+}
+
+button {
+  width: 48px !important;
+  height: 48px !important;
   border-radius: 50%;
-  border: 1px solid #ddd;
-  background: #fff;
+  border: 1.5px solid #d9d9d9;
+  background: white;
   cursor: pointer;
+  font-size: 20px;
+  line-height: 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.25s;
+  padding: 0;
 }
 
-.controls button:hover {
-  background: #f0efff;
+button:focus {
+  border-color: #6248ff;
+}
+
+button:hover {
+  border-color: #6248FF;
 }
 
 .right {
-  max-width: 480px;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
 }
 
 .user {
   display: flex;
   align-items: center;
   gap: 14px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .user img {
@@ -132,19 +179,130 @@ function next() {
 
 .role {
   color: #6c6c6c;
+  font-size: 16px;
 }
 
-.quote {
-  color: #8364ff;
-  margin: 8px 0;
+.right-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.quote-desktop img,
+.quote-mobile img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: drop-shadow(0px 0px 0px #6248FF);
 }
 
 .text {
-  margin-bottom: 12px;
+  font-size: 24px;
+  line-height: 26px;
 }
 
 .count {
-  color: #7b6fff;
+  color: #6248FF;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.quote-mobile {
+  display: none;
+}
+
+.quote-desktop {
+  display: block;
+}
+
+.controls-left {
+  display: flex;
+}
+
+.arrow {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .testimonials {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    gap: 40px;
+  }
+
+  .left {
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+  }
+
+  .title {
+    text-align: left;
+    width: 100%;
+  }
+
+  .controls-left {
+    display: none;
+  }
+
+  .arrow {
+    display: flex;
+    flex-shrink: 0 !important;
+  }
+
+  .right-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .user {
+    justify-content: center;
+    flex-direction: column;
+    order: 1;
+  }
+
+  .quote-desktop {
+    display: none;
+  }
+
+  .quote-mobile {
+    display: block;
+    order: 2;
+  }
+
+  .text {
+    order: 3;
+    text-align: center;
+    font-size: 20px;
+    width: 100%;
+  }
+
+  .count {
+    order: 4;
+    text-align: center;
+    width: 100%;
+  }
+}
+@media (max-width: 320px) {
+  .right-wrapper{
+    align-items: flex-end;
+  }
 }
 
 </style>

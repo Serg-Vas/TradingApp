@@ -30,16 +30,25 @@ function sendForm() {
       </p>
 
       <div class="info">
-        <p><strong>Phone:</strong><br />442038957261</p>
+        <div class="info-item">
+          <span class="info-label">Phone:</span>
+          <span class="info-value">442038957261</span>
+        </div>
 
-        <p><strong>Email:</strong><br />help@google.com</p>
+        <div class="info-item">
+          <span class="info-label">Email:</span>
+          <span class="info-value">help@google.com</span>
+        </div>
 
-        <p>
-          <strong>Address:</strong><br />
-          Trust Company Complex, Ajeltake Road, Ajeltake Island,
-          Majuro, Republic of the Marshall Islands, MH 96960
-        </p>
+        <div class="info-item">
+          <span class="info-label">Address:</span>
+          <span class="info-value">
+            Trust Company Complex, Ajeltake Road, Ajeltake Island,
+            Majuro, Republic of the Marshall Islands, MH 96960
+          </span>
+        </div>
       </div>
+
     </div>
 
     <div class="right">
@@ -59,60 +68,80 @@ function sendForm() {
   display: flex;
   align-items: flex-start;
   gap: 60px;
-}
-
-.title {
-  text-align: center;
+  flex-wrap: wrap;
 }
 
 .subtitle {
-  font-size: 16px;
-  color: #555;
   margin-bottom: 25px;
   max-width: 420px;
 }
 
 .small {
-  font-size: 14px;
-  color: #666;
+  font-size: 16px;
   margin-bottom: 25px;
 }
 
-.info p {
-  margin-bottom: 15px;
-  font-size: 15px;
-  color: #444;
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.info-label {
+  color: #333333; 
+  font-weight: 600;
+  line-height: 16px;
+  font-family: "Museo Sans Cyrl", sans-serif;
+}
+
+.info-value {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #4F4F4F;
 }
 
 .form {
   background: white;
-  border: 2px solid #a88fff;
+  border: 2px solid #6248FF;
   border-radius: 16px;
-  padding: 80px;
-  width: 100%;
-  max-width: 420px;
+  padding: clamp(20px, 6vw, 80px);
+  width: clamp(280px, 60vw, 600px);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
+  gap: clamp(12px, 2vw, 20px);
+  box-sizing: border-box;
+  flex-shrink: 1;
+  min-width: 0;
 }
+
 
 input,
 textarea {
-  width: 100%;
+  width: clamp(248px, 95%, 420px);
   border: 1px solid #E0E0E0;
   /* background: #fafafa; */
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 12px clamp(8px, 2vw, 16px);
   font-size: 16px;
   outline: none;
   transition: 0.2s;
   font-family: 'Montserrat', sans-serif;
+  line-height: 26px;
+  /* margin: 10px 0; */
 }
 
 input:focus,
 textarea:focus {
-  border-color: #8c6bff;
+  border-color: #6248FF;
   background: #fff;
 }
 
@@ -121,22 +150,12 @@ textarea {
   resize: none;
 }
 
-.btn {
-  margin-top: 10px;
-  width: 130px;
-  align-self: center;
-  background: #6d47ff;
-  color: white;
-  font-size: 15px;
-  padding: 10px 0;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.25s;
-  letter-spacing: 0.5px;
+.btn{
+  margin-inline: auto;
+  display: block;
 }
 
 .btn:hover {
-  background: #5b34ef;
+  background: #6248FF;
 }
 </style>

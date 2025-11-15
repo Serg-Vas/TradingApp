@@ -44,12 +44,7 @@ function toggle(i: number) {
     </h2>
 
     <div class="faq-list">
-      <div
-        v-for="(item, i) in faqs"
-        :key="i"
-        class="faq-item"
-        :class="{ open: active === i }"
-      >
+      <div v-for="(item, i) in faqs" :key="i" class="faq-item" :class="{ open: active === i }">
         <div class="faq-header" @click="toggle(i)">
           <span>{{ item.title }}</span>
 
@@ -69,7 +64,9 @@ function toggle(i: number) {
 </template>
 
 <style scoped>
-
+.faq {
+  flex-direction: column;
+}
 .title span {
   background: #eee9ff;
   padding: 0 8px;
@@ -84,7 +81,7 @@ function toggle(i: number) {
 .faq-item {
   border: 2px solid #6248FF;
   border-radius: 16px;
-  padding: 18px 22px;
+  padding: clamp(6px, 2vw, 18px) clamp(8px, 3vw, 22px);
   cursor: pointer;
   transition: 0.25s;
 }
@@ -96,14 +93,20 @@ function toggle(i: number) {
 .faq-header {
   font-size: 24px;
   font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .icon {
   border: none;
   background: none;
-  font-size: 24px;
+  font-size: 35px;
   font-weight: 300;
   cursor: pointer;
+  color: black;
+  user-select: none;
+  padding: clamp(0px, 1vw, 10px) clamp(0px, 1vw, 20px);
 }
 
 .faq-enter-from,
@@ -111,14 +114,22 @@ function toggle(i: number) {
   opacity: 0;
   max-height: 0;
 }
+
 .faq-enter-to,
 .faq-leave-from {
   opacity: 1;
   max-height: 300px;
 }
+
 .faq-enter-active,
 .faq-leave-active {
   overflow: hidden;
   transition: all 0.25s ease;
+}
+
+@media (max-width: 320px) {
+  .faq-header {
+    font-size: 18px;
+  }  
 }
 </style>

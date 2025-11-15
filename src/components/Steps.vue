@@ -103,6 +103,9 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+.getting-started {
+  flex-direction: column;
+}
 
 .title span {
   background: #ece8ff;

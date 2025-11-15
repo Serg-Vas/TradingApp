@@ -65,10 +65,10 @@ function selectLang(lang: string) {
 header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     height: 80px;
     width: 100%;
-    padding-inline: clamp(20px, 4vw, 120px);
+    /* padding-inline: clamp(20px, 4vw, 120px); */
     background-color: #fff;
     box-sizing: border-box;
 }

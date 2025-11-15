@@ -32,22 +32,15 @@ p {
   max-width: 483px;
 }
 
-/* .image-container {
-  flex: 1 1 400px;
-  text-align: right;
-} */
-
 .image-container img {
   width: 100%;
-  max-width: 482px;
-  min-width: 200px;
+  max-width: 600px; /* можешь поставить больше */
   height: auto;
 }
 
 /*728px*/
 @media (max-width: 768px) {
   .trading-intro {
-    padding: 50px 40px;
     text-align: center;
     gap: 32px;
   }
@@ -68,7 +61,6 @@ p {
 /*320px*/
 @media (max-width: 320px) {
   .trading-intro {
-    padding: 40px 24px;
     gap: 24px;
   }
 
