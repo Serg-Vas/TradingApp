@@ -1,3 +1,30 @@
+type LeaderLineSocket = "top" | "right" | "bottom" | "left";
+type LeaderLineEffect = string;
+
+interface LeaderLineOptions {
+  path?: string;
+  startSocket?: LeaderLineSocket;
+  endSocket?: LeaderLineSocket;
+  startPlug?: string;
+  endPlug?: string;
+  color?: string;
+  dash?: boolean;
+  size?: number;
+}
+
+interface LeaderLineInstance {
+  position(): void;
+  hide(effect?: LeaderLineEffect): void;
+  show(effect?: LeaderLineEffect): void;
+  remove(): void;
+}
+
+interface LeaderLineConstructor {
+  new (start: HTMLElement, end: HTMLElement, options?: LeaderLineOptions): LeaderLineInstance;
+}
+
+declare const LeaderLine: LeaderLineConstructor;
+
 export interface LineController {
   init(cards: HTMLElement[]): void;
   destroy(): void;
@@ -6,16 +33,16 @@ export interface LineController {
 }
 
 export function createLineController(): LineController {
-  let lines: any[] = [];
+  let lines: LeaderLineInstance[] = [];
   const ARC_RADIUS = 25;
   const BREAKPOINT = 992;
 
   function connect(
     a: HTMLElement,
     b: HTMLElement,
-    startSocket: string,
-    endSocket: string
-  ) {
+    startSocket: LeaderLineSocket,
+    endSocket: LeaderLineSocket
+  ): LeaderLineInstance {
     return new LeaderLine(a, b, {
       path: "grid",
       startSocket,
@@ -66,7 +93,7 @@ export function createLineController(): LineController {
       .trim()
       .replace(/,/g, " ")
       .replace(/\s+/g, " ")
-      .replace(/^M ?([\d.\-+]+) ([\d.\-+]+) ?/, (s, x, y) => {
+      .replace(/^M ?([\d.\-+]+) ([\d.\-+]+) ?/, (_match, x, y) => {
         curXY = { x: +x, y: +y };
         return "";
       });
@@ -121,7 +148,7 @@ export function createLineController(): LineController {
     return newPathData;
   }
 
-  function applyRoundedPath(line: any, index: number) {
+  function applyRoundedPath(index: number) {
     const path = document.getElementById(`leader-line-${index + 1}-line-path`);
     if (!path) return;
 
@@ -135,15 +162,17 @@ export function createLineController(): LineController {
 
   function updateLines() {
     lines.forEach((l) => l.position());
-    lines.forEach((l, i) => applyRoundedPath(l, i));
+    lines.forEach((_, i) => applyRoundedPath(i));
   }
 
   function init(cards: HTMLElement[]) {
     if (!cards.length) return;
+    const [first, second, third, fourth] = cards;
+    if (!first || !second || !third || !fourth) return;
 
-    const l1 = connect(cards[0], cards[1], "right", "top");
-    const l2 = connect(cards[1], cards[2], "left", "top");
-    const l3 = connect(cards[2], cards[3], "right", "top");
+    const l1 = connect(first, second, "right", "top");
+    const l2 = connect(second, third, "left", "top");
+    const l3 = connect(third, fourth, "right", "top");
 
     lines = [l1, l2, l3];
 

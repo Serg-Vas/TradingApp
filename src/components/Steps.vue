@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, nextTick, ref, onBeforeUnmount } from "vue";
-import { createLineController } from "../utils/lineController";
+import { createLineController } from "../utils/lineController.ts";
 
 const steps = [
   {

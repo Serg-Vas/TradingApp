@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-interface FaqItem {
-  title: string;
-  text: string;
-}
-
-const faqs: FaqItem[] = [
+const faqs = [
   {
     title: "How do I change my personal details?",
     text: "You can update your profile information anytime from the Settings section of your account. Simply open your dashboard, select “Profile”, and edit the fields you need.",

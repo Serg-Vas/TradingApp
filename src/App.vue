@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import TradingIntro from './components/TradingIntro.vue';
 import Header from './components/Header.vue';
 import Steps from './components/Steps.vue';
