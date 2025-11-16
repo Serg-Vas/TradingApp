@@ -8,24 +8,24 @@ interface FaqItem {
 
 const faqs: FaqItem[] = [
   {
-    title: "How do I change my details?",
-    text: "We provide only the best trading software. The trading terminal MetaTrader4 is the most popular...",
+    title: "How do I change my personal details?",
+    text: "You can update your profile information anytime from the Settings section of your account. Simply open your dashboard, select “Profile”, and edit the fields you need.",
   },
   {
-    title: "What platforms will I be able to use?",
-    text: "We provide only the best trading software. The trading terminal MetaTrader4 is the most popular...",
+    title: "What trading platforms are available?",
+    text: "Our clients can trade using MetaTrader4, WebTrader, or the mobile app. All platforms offer real-time charts, fast execution, and access to global markets.",
   },
   {
-    title: "How do I change my details?",
-    text: "We provide only the best trading software. The trading terminal MetaTrader4 is the most popular...",
+    title: "How do I make my first deposit?",
+    text: "Go to the “Finance” page and choose your preferred payment method. We support credit cards, bank transfers, and several secure online payment options.",
   },
   {
-    title: "How do I change my details?",
-    text: "We provide only the best trading software. The trading terminal MetaTrader4 is the most popular...",
+    title: "Is my money protected on your platform?",
+    text: "Yes, all client funds are stored in segregated accounts, and every transaction is secured with industry-standard encryption to ensure maximum safety.",
   },
   {
-    title: "How do I change my details?",
-    text: "We provide only the best trading software. The trading terminal MetaTrader4 is the most popular...",
+    title: "Can I trade from my phone?",
+    text: "Absolutely! Download our mobile trading app to monitor markets, open and close trades, and manage your portfolio wherever you are.",
   },
 ];
 
@@ -127,7 +127,7 @@ function toggle(i: number) {
   transition: all 0.25s ease;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 400px) {
   .faq-header {
     font-size: 18px;
   }  

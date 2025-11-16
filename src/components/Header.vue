@@ -65,10 +65,9 @@ function selectLang(lang: string) {
 header {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
     height: 80px;
     width: 100%;
-    /* padding-inline: clamp(20px, 4vw, 120px); */
     background-color: #fff;
     box-sizing: border-box;
 }
@@ -77,10 +76,6 @@ header {
     display: flex;
     align-items: center;
     gap: 48px;
-}
-
-.logo {
-    font-weight: 700;
 }
 
 .navigation ul {
@@ -125,10 +120,6 @@ header {
 }
 
 @media (max-width: 1100px) {
-    header {
-        padding-inline: 40px;
-    }
-
     .navigation {
         display: none;
     }
@@ -150,21 +141,13 @@ header {
     }
 }
 
-@media (max-width: 320px) {
-    header {
-        padding-inline: 20px;
-    }
-
+@media (max-width: 400px) {
     .sign-btn {
         display: none;
     }
 
     .hamburger {
         font-size: 24px;
-    }
-
-    .logo {
-        font-size: 14px;
     }
 }
 </style>

@@ -1,11 +1,29 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const name = ref("");
 const email = ref("");
 const message = ref("");
 
-function sendForm() {
+const focused = ref(false);
+
+function isEmailValid(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+const emailValid = computed(() => isEmailValid(email.value));
+const emailInvalid = computed(() => email.value.length > 0 && !isEmailValid(email.value));
+
+const showError = computed(() => focused.value && emailInvalid.value);
+
+function sendForm(e: Event) {
+  e.preventDefault();
+
+  if (!emailValid.value) {
+    console.log("Email incorrect");
+    return;
+  }
+
   console.log({
     name: name.value,
     email: email.value,
@@ -13,6 +31,8 @@ function sendForm() {
   });
 }
 </script>
+
+
 
 <template>
   <section class="violet contact">
@@ -52,23 +72,53 @@ function sendForm() {
     </div>
 
     <div class="right">
-      <form class="form" @submit.prevent="sendForm">
+      <form class="form" @submit.prevent="sendForm" novalidate>
+
         <input v-model="name" type="text" placeholder="Name" />
-        <input v-model="email" type="email" placeholder="Email" />
+
+        <div class="email-wrapper">
+          <input v-model="email" type="email" placeholder="Email" @focus="focused = true"
+            :class="{
+              'input-valid': emailValid,
+              'input-error': emailInvalid
+            }" />
+
+          <p v-if="showError" class="error-text">Incorrect email type</p>
+        </div>
+
+
         <textarea v-model="message" placeholder="Message"></textarea>
 
         <button type="submit" class="btn">SEND</button>
       </form>
     </div>
+
   </section>
 </template>
 
 <style scoped>
+
+.input-valid:focus {
+  border-color: #0EAC00 !important;
+}
+
+.input-error:focus {
+  border-color: #EB5757 !important;
+}
+
+.error-text {
+  color: #EB5757;
+  margin: 0;
+  margin-top: 6px;
+  font-size: 14px;
+  font-family: 'Museo Sans Cyrl', sans-serif;
+}
+
 .contact {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 60px;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
 }
 
 .subtitle {
@@ -91,10 +141,11 @@ function sendForm() {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  max-width: 500px;
 }
 
 .info-label {
-  color: #333333; 
+  color: #333333;
   font-weight: 600;
   line-height: 16px;
   font-family: "Museo Sans Cyrl", sans-serif;
@@ -116,19 +167,19 @@ function sendForm() {
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: clamp(12px, 2vw, 20px);
   box-sizing: border-box;
   flex-shrink: 1;
   min-width: 0;
 }
 
-
 input,
 textarea {
-  width: clamp(248px, 95%, 420px);
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 420px;
   border: 1px solid #E0E0E0;
-  /* background: #fafafa; */
   border-radius: 8px;
   padding: 12px clamp(8px, 2vw, 16px);
   font-size: 16px;
@@ -141,8 +192,13 @@ textarea {
 
 input:focus,
 textarea:focus {
-  border-color: #6248FF;
+  border-color: #828282;
   background: #fff;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #828282;
 }
 
 textarea {
@@ -150,7 +206,7 @@ textarea {
   resize: none;
 }
 
-.btn{
+.btn {
   margin-inline: auto;
   display: block;
 }

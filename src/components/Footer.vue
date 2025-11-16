@@ -45,7 +45,7 @@
     </div>
 
     <div class="footer-bottom">
-      <span>Copyright 2020, All Right Reserved</span>
+      <span class="copyright">Copyright 2020, All Right Reserved</span>
 
       <div class="links">
         <a href="#">Terms and Conditions</a>
@@ -59,55 +59,56 @@
 
 <style scoped>
 .footer {
-  padding: 60px 0 40px;
-  background: #ffffff;
-  color: #333;
+  background: white;
   border-top: 1px solid #ececec;
 }
 
 .footer-top {
-  display: grid;
-  grid-template-columns: 150px 1fr 1fr 150px;
-  gap: 40px;
-  align-items: flex-start;
-  margin-bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  gap: 80px;
+  margin-bottom: 40px;
 }
 
-.logo {
-  font-size: 20px;
-  font-weight: 700;
+.col-fixed {
+  flex: 0 0 150px;
+}
+
+.col-grow {
+  flex: 1 1 0;
 }
 
 .col h4 {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 10px;
+  margin: 0;
+  margin-bottom: 26px;
 }
 
 .col p {
-  font-size: 14px;
-  line-height: 1.55;
-  color: #555;
-  margin-bottom: 0;
+  font-size: 16px;
+  line-height: 27px;
+  margin: 0;
 }
 
 .menu {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 24px;
 }
 
 .menu a {
   font-size: 14px;
   color: #444;
   text-decoration: none;
+  white-space: nowrap;
 }
+
 .menu a:hover {
   color: #6f4bff;
 }
 
 .footer-bottom {
-  border-top: 1px solid #eee;
   padding-top: 22px;
   display: flex;
   justify-content: space-between;
@@ -115,29 +116,138 @@
   gap: 16px;
   font-size: 13px;
   color: #555;
+  padding-bottom: clamp(20px, 5vw, 60px);
 }
 
-.footer-bottom a {
-  color: #444;
-  text-decoration: none;
-  margin-left: 18px;
-}
 .footer-bottom a:hover {
   color: #6f4bff;
 }
 
-@media (max-width: 1100px) {
+.copyright,
+.links a {
+  font-size: 16px;
+  font-weight: 400;
+  font-family: Montserrat, sans-serif;
+  line-height: 27px;
+  color: #828282;
+}
+
+.links {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
   .footer-top {
-    grid-template-columns: 1fr 1fr;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 54px;
+  }
+
+  .footer-top > .col:nth-child(1) {
+    order: 1;
+    padding: 30px 0;
+  }
+
+  .footer-top > .col:nth-child(4) {
+    order: 2;
+  }
+
+  .footer-top > .col:nth-child(2) {
+    order: 3;
+  }
+
+  .footer-top > .col:nth-child(3) {
+    order: 4;
+  }
+
+  .menu {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .col p {
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 400px) {
   .footer-top {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 24px;
   }
+
+  .footer-top > .col:nth-child(1) {
+    order: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .footer-top > .col:nth-child(4) {
+    order: 2;
+    width: 100%;
+    padding-bottom: 20px;
+  }
+
   .menu {
-    margin-top: 10px;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .menu a {
+    white-space: nowrap;
+  }
+
+  .footer-top > .col:nth-child(2) {
+    order: 3;
+  }
+
+  .footer-top > .col:nth-child(3) {
+    order: 4;
+  }
+
+  .col p {
+    max-width: 310px;
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .footer-bottom {
+    margin-top: 20px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    text-align: center;
+    padding-top: 0;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 }
 </style>

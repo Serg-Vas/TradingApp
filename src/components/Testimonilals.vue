@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { ref } from "vue";
 
 const testimonials = [
@@ -101,10 +101,10 @@ function next() {
 <style scoped>
 .testimonials {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-start;
   gap: clamp(40px, 6vw, 80px);
-  margin-top: clamp(80px, 12vw, 220px);
+  margin-top: clamp(20px, 6vw, 100px);
 }
 
 .left {
@@ -224,7 +224,7 @@ button:hover {
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .testimonials {
     flex-direction: column;
     align-items: stretch;
@@ -299,7 +299,7 @@ button:hover {
     width: 100%;
   }
 }
-@media (max-width: 320px) {
+@media (max-width: 400px) {
   .right-wrapper{
     align-items: flex-end;
   }

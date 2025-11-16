@@ -1,5 +1,7 @@
-<script setup lang="ts">
-import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+<script setup>
+import { onMounted, nextTick, ref, onBeforeUnmount } from "vue";
+import { createLineController } from "../utils/lineController";
+
 const steps = [
   {
     id: "01.",
@@ -23,62 +25,25 @@ const steps = [
   }
 ];
 
-const cards = ref<HTMLDivElement[]>([]);
+const cards = ref([]);
+const controller = createLineController();
+const breakpoint = 900;
 
-function drawLines() {
-  const canvas = document.getElementById("canvas-lines") as HTMLCanvasElement;
-  const ctx = canvas.getContext("2d")!;
-
-  const stepsEl = document.querySelector(".steps")!.getBoundingClientRect();
-
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  ctx.strokeStyle = "#6248FF";
-  ctx.lineWidth = 3;
-  ctx.setLineDash([1, 6]);
-  ctx.lineCap = "round";
-
-  function drawCurve(a: DOMRect, b: DOMRect, bend: "right" | "left") {
-    ctx.beginPath();
-
-    const ax = a.left + a.width - stepsEl.left;
-    const ay = a.top + a.height / 2 - stepsEl.top;
-
-    const bx = b.left - stepsEl.left;
-    const by = b.top + b.height / 2 - stepsEl.top;
-
-    const midX = (ax + bx) / 2;
-
-    ctx.moveTo(ax, ay);
-
-    if (bend === "right") {
-      ctx.quadraticCurveTo(midX, ay, midX, by);
-    } else {
-      ctx.quadraticCurveTo(midX, by, midX, ay);
-    }
-
-    ctx.lineTo(bx, by);
-    ctx.stroke();
-  }
-
-  drawCurve(cards.value[0].getBoundingClientRect(), cards.value[1].getBoundingClientRect(), "right");
-  drawCurve(cards.value[1].getBoundingClientRect(), cards.value[2].getBoundingClientRect(), "left");
-  drawCurve(cards.value[2].getBoundingClientRect(), cards.value[3].getBoundingClientRect(), "right");
-}
-
-
+const updateLinesVisibility = () => {
+  if (window.innerWidth > breakpoint) controller.show();
+  else controller.hide();
+};
 
 onMounted(async () => {
   await nextTick();
-  drawLines();
-  window.addEventListener("resize", drawLines);
+  controller.init(cards.value);
+  updateLinesVisibility();
+  window.addEventListener("resize", updateLinesVisibility);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("resize", drawLines);
+  controller.destroy();
+  window.removeEventListener("resize", updateLinesVisibility);
 });
 </script>
 
@@ -91,13 +56,17 @@ onBeforeUnmount(() => {
     </h2>
 
     <div class="steps">
-      <div v-for="(step, index) in steps" :key="step.id" class="step-card" :class="'card-' + (index + 1)" ref="cards">
+      <div
+        v-for="(step, index) in steps"
+        :key="step.id"
+        class="step-card"
+        :class="'card-' + (index + 1)"
+        ref="cards"
+      >
         <div class="step-id">{{ step.id }}</div>
         <h3 class="step-title">{{ step.title }}</h3>
         <p class="step-text">{{ step.text }}</p>
       </div>
-
-      <canvas id="canvas-lines"></canvas>
     </div>
   </section>
 </template>
@@ -115,39 +84,34 @@ onBeforeUnmount(() => {
 .steps {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(2, max-content);
-  grid-template-rows: max-content max-content;
-  gap: 0 200px;
+  grid-template-columns: repeat(2, minmax(0, 483px));
+  gap: 0 clamp(20px, 8vw, 200px);
   align-items: start;
+  padding-bottom: 200px;
 }
 
 .step-card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 483px;
-  box-sizing: border-box;
-  width: fit-content;
-
+  gap: clamp(10px, 2vw, 20px);
+  width: 100%;
   border: 2px solid #6248FF;
   border-radius: 30px;
-  padding: 32px;
-
+  padding: clamp(24px, 4vw, 32px);
   background: #fff;
-  position: relative;
   z-index: 2;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .card-2 {
-  transform: translateY(70px);
+  transform: translateY(160px);
 }
-
 .card-3 {
-  transform: translateY(140px);
+  transform: translateY(100px);
 }
-
 .card-4 {
-  transform: translateY(210px);
+  transform: translateY(280px);
 }
 
 #canvas-lines {
@@ -157,7 +121,6 @@ onBeforeUnmount(() => {
   height: 100%;
   pointer-events: none;
 }
-
 
 .step-id {
   color: #6248FF;
@@ -173,9 +136,28 @@ onBeforeUnmount(() => {
   color: #333333;
 }
 
-@media (max-width: 320px) {
+@media (max-width: 400px) {
   .getting-started {
     padding: 40px 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .steps {
+    grid-template-columns: 1fr;
+    gap: 40px 0;
+    padding-bottom: 0;
+  }
+
+  .step-card {
+    justify-self: center;
+    max-width: 483px;
+  }
+
+  .card-2,
+  .card-3,
+  .card-4 {
+    transform: translateY(0);
   }
 }
 </style>

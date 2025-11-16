@@ -11,16 +11,18 @@
         Footer
 
 Завдання:
-    -зробити TradingIntro.vue
+    +зробити TradingIntro.vue
     +зробити Header.vue
-    -зробити Steps.vue
-        доробити лінії
-    -зробити Testimonials.vue
-    -написати глобальні стилі main.css
+    +зробити Steps.vue
+        +доробити лінії
+    +зробити Testimonials.vue
+    +написати глобальні стилі main.css
         +зробити анімацію стейтів для кнопок
 
     +fix button in FAQ
     +fix form in ContactUs
     +fix Testimonials
-    fix steps
-    continue working on css
+    +fix steps
+    +form states
+    +fix footer
+    +continue working on css

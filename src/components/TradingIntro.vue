@@ -38,14 +38,22 @@ p {
   height: auto;
 }
 
-/*728px*/
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .trading-intro {
     text-align: center;
     gap: 32px;
+    flex-direction: column;
   }
 
   .text {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1, p {
+    flex: none;
     max-width: 100%;
   }
 
@@ -58,8 +66,8 @@ p {
   }
 }
 
-/*320px*/
-@media (max-width: 320px) {
+
+@media (max-width: 400px) {
   .trading-intro {
     gap: 24px;
   }
@@ -72,11 +80,6 @@ p {
 
   p {
     text-align: left;
-  }
-
-  button {
-    padding: 16px 48px;
-    font-size: 14px;
   }
 
   .image-container img {
