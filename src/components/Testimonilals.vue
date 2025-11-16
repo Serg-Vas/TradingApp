@@ -1,7 +1,14 @@
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import { computed, ref } from "vue";
 
-const testimonials = [
+interface Testimonial {
+  img: string;
+  name: string;
+  role: string;
+  text: string;
+}
+
+const testimonials: Testimonial[] = [
   {
     img: "https://i.pravatar.cc/80?img=12",
     name: "Albert Abello",
@@ -29,6 +36,18 @@ const testimonials = [
 ];
 
 const index = ref(0);
+
+function getTestimonial(position: number): Testimonial {
+  if (!testimonials.length) {
+    throw new Error("Testimonials data must not be empty");
+  }
+  const normalizedIndex =
+    ((position % testimonials.length) + testimonials.length) %
+    testimonials.length;
+  return testimonials[normalizedIndex]!;
+}
+
+const currentTestimonial = computed(() => getTestimonial(index.value));
 
 function prev() {
   index.value = index.value === 0 ? testimonials.length - 1 : index.value - 1;
@@ -66,10 +85,10 @@ function next() {
   <div class="right">
 
     <div class="user">
-      <img :src="testimonials[index].img" />
+      <img :src="currentTestimonial.img" />
       <div class="user-info">
-        <h4>{{ testimonials[index].name }}</h4>
-        <p class="role">{{ testimonials[index].role }}</p>
+        <h4>{{ currentTestimonial.name }}</h4>
+        <p class="role">{{ currentTestimonial.role }}</p>
       </div>
     </div>
 
@@ -78,7 +97,7 @@ function next() {
       <img src="/public/images/quotationMark.png" alt="">
     </div>
 
-    <p class="text">{{ testimonials[index].text }}</p>
+    <p class="text">{{ currentTestimonial.text }}</p>
 
     <div class="count">
       {{ String(index + 1).padStart(2, '0') }} /

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, nextTick, ref, onBeforeUnmount } from "vue";
 import { createLineController } from "../utils/lineController.ts";
 
